@@ -21,7 +21,8 @@ public final class SearchRecipeUseCase {
     
     public func receive(ingredients: String) {
         if !ingredients.isEmpty {
-            output.didReceived(ingredients: ["Tomatoes"])
+            let splitIngredients = ingredients.components(separatedBy: ", ")
+            output.didReceived(ingredients: splitIngredients)
         }
     }
 }
