@@ -14,7 +14,7 @@ class SearchRecipeUseCaseTest: XCTestCase {
     func test_init_DoesNotSendIngredientsDataOutput() {
         let (_, output) = makeSUT()
         
-        XCTAssertTrue(output.messages.isEmpty)
+        XCTAssertTrue(output.ingredients.isEmpty)
     }
     
     func test_receiveWithEmptyIngredients_doesNotSendsEmptyIngredientsListDataOutput() {
@@ -22,7 +22,7 @@ class SearchRecipeUseCaseTest: XCTestCase {
         
         sut.receive(ingredients: "")
         
-        XCTAssertTrue(output.messages.isEmpty)
+        XCTAssertTrue(output.ingredients.isEmpty)
     }
     
     func test_receive_sendsListIngredientsListDataOutput() {
@@ -30,7 +30,7 @@ class SearchRecipeUseCaseTest: XCTestCase {
         
         sut.receive(ingredients: "Tomatoes")
         
-        XCTAssertEqual(output.messages, ["Tomatoes"])
+        XCTAssertEqual(output.ingredients, ["Tomatoes"])
     }
     
     func test_receiveWithMultipleIngredientsWithComa_sendsListIngredientsListDataOutput() {
@@ -38,7 +38,7 @@ class SearchRecipeUseCaseTest: XCTestCase {
         
         sut.receive(ingredients: "Tomatoes, Potatoes")
         
-        XCTAssertEqual(output.messages, ["Tomatoes", "Potatoes"])
+        XCTAssertEqual(output.ingredients, ["Tomatoes", "Potatoes"])
     }
     
     func test_receiveWithMultipleIngredientsWithoutComa_sendsListIngredientsListDataOutput() {
@@ -46,7 +46,7 @@ class SearchRecipeUseCaseTest: XCTestCase {
         
         sut.receive(ingredients: "Tomatoes Potatoes")
         
-        XCTAssertEqual(output.messages, ["Tomatoes", "Potatoes"])
+        XCTAssertEqual(output.ingredients, ["Tomatoes", "Potatoes"])
     }
     
     func test_receiveWithMultipleIngredientsWithoutCapitalized_sendsListIngredientsListDataOutputCapitalized() {
@@ -54,7 +54,7 @@ class SearchRecipeUseCaseTest: XCTestCase {
         
         sut.receive(ingredients: "tomatoes potatoes")
         
-        XCTAssertEqual(output.messages, ["Tomatoes", "Potatoes"])
+        XCTAssertEqual(output.ingredients, ["Tomatoes", "Potatoes"])
     }
     
     func test_receiveWithMultipleIngredientsWithMultipleWhiteSpace_sendsListIngredientsListDataOutputWithoutWhiteSpace() {
@@ -62,7 +62,7 @@ class SearchRecipeUseCaseTest: XCTestCase {
         
         sut.receive(ingredients: "tomatoes  potatoes")
         
-        XCTAssertEqual(output.messages, ["Tomatoes", "Potatoes"])
+        XCTAssertEqual(output.ingredients, ["Tomatoes", "Potatoes"])
     }
     
     func test_receiveWithMultipleIngredientsWithMultipleComma_sendsListIngredientsListDataOutputWithoutComma() {
@@ -70,7 +70,7 @@ class SearchRecipeUseCaseTest: XCTestCase {
         
         sut.receive(ingredients: "Tomatoes,, Potatoes")
         
-        XCTAssertEqual(output.messages, ["Tomatoes", "Potatoes"])
+        XCTAssertEqual(output.ingredients, ["Tomatoes", "Potatoes"])
     }
     
     func test_receiveWithMultipleIngredientsStartWithCommaAndEndWithWhiteSpace_sendsListIngredientsListDataOutputWithoutCommaAndWhiteSpace() {
@@ -78,7 +78,7 @@ class SearchRecipeUseCaseTest: XCTestCase {
         
         sut.receive(ingredients: ",Tomatoes, Potatoes ")
         
-        XCTAssertEqual(output.messages, ["Tomatoes", "Potatoes"])
+        XCTAssertEqual(output.ingredients, ["Tomatoes", "Potatoes"])
     }
     
     func test_receivedMultipleIngredients_sendListIngredientsFormmated() {
@@ -86,7 +86,7 @@ class SearchRecipeUseCaseTest: XCTestCase {
         
         sut.receive(ingredients: ",Tomatoes,  Potatoes meal: orange,  ")
         
-        XCTAssertEqual(output.messages, ["Tomatoes", "Potatoes", "Meal", "Orange"])
+        XCTAssertEqual(output.ingredients, ["Tomatoes", "Potatoes", "Meal", "Orange"])
     }
     
     // MARK: - Helpers
@@ -98,10 +98,10 @@ class SearchRecipeUseCaseTest: XCTestCase {
     }
     
     private class OutputSpy: SearchRecipeUseCaseOutput {
-        var messages = [String]()
+        var ingredients = [String]()
         
         func didReceived(ingredients: [String]) {
-            messages = ingredients
+            self.ingredients = ingredients
         }
     }
 }
