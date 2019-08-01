@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4647AD1522F319780017738A /* Reciplease.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4647AD0B22F319780017738A /* Reciplease.framework */; };
+		4647AD2622F31B660017738A /* SearchRecipeUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4647AD2522F31B660017738A /* SearchRecipeUseCaseTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -25,6 +26,7 @@
 		4647AD0F22F319780017738A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4647AD1422F319780017738A /* RecipleaseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecipleaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4647AD1B22F319780017738A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4647AD2522F31B660017738A /* SearchRecipeUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecipeUseCaseTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				4647AD1B22F319780017738A /* Info.plist */,
+				4647AD2522F31B660017738A /* SearchRecipeUseCaseTest.swift */,
 			);
 			path = RecipleaseTests;
 			sourceTree = "<group>";
@@ -144,6 +147,7 @@
 					};
 					4647AD1322F319780017738A = {
 						CreatedOnToolsVersion = 10.3;
+						LastSwiftMigration = 1030;
 					};
 				};
 			};
@@ -194,6 +198,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4647AD2622F31B660017738A /* SearchRecipeUseCaseTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,6 +387,7 @@
 		4647AD2322F319780017738A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = RecipleaseTests/Info.plist;
@@ -392,6 +398,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.christophebugnon.RecipleaseTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -399,6 +406,7 @@
 		4647AD2422F319780017738A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = RecipleaseTests/Info.plist;
