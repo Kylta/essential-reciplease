@@ -8,20 +8,6 @@
 
 import XCTest
 
-protocol SearchRecipeUseCaseOutput {
-    
-}
-
-final class SearchRecipeUseCase {
-    init(output: SearchRecipeUseCaseOutput) {
-        
-    }
-    
-    func receive() {
-        
-    }
-}
-
 class SearchRecipeUseCaseTest: XCTestCase {
     
     func test_init_DoesNotSendIngredientsDataOutput() {
