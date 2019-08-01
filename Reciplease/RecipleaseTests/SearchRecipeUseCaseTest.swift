@@ -131,6 +131,27 @@ class SearchRecipeUseCaseTest: XCTestCase {
         XCTAssertEqual(output.error, "No ingredients in your list !")
     }
     
+    func test_search_doesNotCompleteOnEmptyList() {
+        var fireSearch = 0
+        let (sut, output) = makeSUT()
+        
+        sut.search { fireSearch += 1 }
+        
+        XCTAssertEqual(output.error, "You need to get ingredients in your list to search recipe !")
+        XCTAssertEqual(fireSearch, 0)
+    }
+    
+    func test_search_completeOnNonEmptyList() {
+        var fireSearch = 0
+        let (sut, output) = makeSUT()
+
+        sut.receive(ingredients: "Tomatoes")
+        sut.search { fireSearch += 1 }
+
+        XCTAssertNil(output.error)
+        XCTAssertEqual(fireSearch, 1)
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT() -> (sut: SearchRecipeUseCase, output: OutputSpy) {

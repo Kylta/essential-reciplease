@@ -35,4 +35,8 @@ public final class SearchRecipeUseCase {
         emptyList ? output.sendError("No ingredients in your list !")
             : output.didDelete()
     }
+    
+    public func search(completion: () -> Void) {
+        emptyList ? output.sendError("You need to get ingredients in your list to search recipe !") : completion()
+    }
 }
