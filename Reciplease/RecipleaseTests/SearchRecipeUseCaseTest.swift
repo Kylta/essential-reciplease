@@ -25,22 +25,28 @@ final class SearchRecipeUseCase {
 class SearchRecipeUseCaseTest: XCTestCase {
     
     func test_init_DoesNotSendIngredientsDataOutput() {
-        let output = OutputSpy()
-        _ = SearchRecipeUseCase(output: output)
+        let (_, output) = makeSUT()
         
         XCTAssertTrue(output.messages.isEmpty)
     }
     
     func test_receive_sendsEmptyIngredientsListDataOutput() {
-        let output = OutputSpy()
-        let sut = SearchRecipeUseCase(output: output)
+        let (sut, output) = makeSUT()
         
         sut.receive()
         
         XCTAssertTrue(output.messages.isEmpty)
     }
     
-    class OutputSpy: SearchRecipeUseCaseOutput {
+    // MARK: - Helpers
+    
+    private func makeSUT() -> (sut: SearchRecipeUseCase, output: OutputSpy) {
+        let output = OutputSpy()
+        let sut = SearchRecipeUseCase(output: output)
+        return (sut, output)
+    }
+    
+    private class OutputSpy: SearchRecipeUseCaseOutput {
         var messages = [String]()
         
     }
