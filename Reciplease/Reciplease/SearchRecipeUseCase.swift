@@ -21,8 +21,18 @@ public final class SearchRecipeUseCase {
     
     public func receive(ingredients: String) {
         if !ingredients.isEmpty {
-            let splitIngredients = ingredients.components(separatedBy: ", ")
-            output.didReceived(ingredients: splitIngredients)
+            output.didReceived(ingredients: ingredients.validatorIngredients())
         }
+    }
+}
+
+private extension String {
+    func validatorIngredients() -> [String] {
+        return self.components(separatedBy: .punctuationCharacters)
+            .joined(separator: " ")
+            .components(separatedBy: .whitespaces)
+            .filter { !$0.isEmpty }
+            .map { $0.trimmingCharacters(in: .whitespaces) }
+            .map { $0.capitalized }
     }
 }

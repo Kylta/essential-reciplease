@@ -33,10 +33,50 @@ class SearchRecipeUseCaseTest: XCTestCase {
         XCTAssertEqual(output.messages, ["Tomatoes"])
     }
     
-    func test_receiveWithMultipleIngredients_sendsListIngredientsListDataOutput() {
+    func test_receiveWithMultipleIngredientsWithComa_sendsListIngredientsListDataOutput() {
         let (sut, output) = makeSUT()
         
         sut.receive(ingredients: "Tomatoes, Potatoes")
+        
+        XCTAssertEqual(output.messages, ["Tomatoes", "Potatoes"])
+    }
+    
+    func test_receiveWithMultipleIngredientsWithoutComa_sendsListIngredientsListDataOutput() {
+        let (sut, output) = makeSUT()
+        
+        sut.receive(ingredients: "Tomatoes Potatoes")
+        
+        XCTAssertEqual(output.messages, ["Tomatoes", "Potatoes"])
+    }
+    
+    func test_receiveWithMultipleIngredientsWithoutCapitalized_sendsListIngredientsListDataOutputCapitalized() {
+        let (sut, output) = makeSUT()
+        
+        sut.receive(ingredients: "tomatoes potatoes")
+        
+        XCTAssertEqual(output.messages, ["Tomatoes", "Potatoes"])
+    }
+    
+    func test_receiveWithMultipleIngredientsWithMultipleWhiteSpace_sendsListIngredientsListDataOutputWithoutWhiteSpace() {
+        let (sut, output) = makeSUT()
+        
+        sut.receive(ingredients: "tomatoes  potatoes")
+        
+        XCTAssertEqual(output.messages, ["Tomatoes", "Potatoes"])
+    }
+    
+    func test_receiveWithMultipleIngredientsWithMultipleComma_sendsListIngredientsListDataOutputWithoutComma() {
+        let (sut, output) = makeSUT()
+        
+        sut.receive(ingredients: "Tomatoes,, Potatoes")
+        
+        XCTAssertEqual(output.messages, ["Tomatoes", "Potatoes"])
+    }
+    
+    func test_receiveWithMultipleIngredientsStartWithCommaAndEndWithWhiteSpace_sendsListIngredientsListDataOutputWithoutCommaAndWhiteSpace() {
+        let (sut, output) = makeSUT()
+        
+        sut.receive(ingredients: ",Tomatoes, Potatoes ")
         
         XCTAssertEqual(output.messages, ["Tomatoes", "Potatoes"])
     }
