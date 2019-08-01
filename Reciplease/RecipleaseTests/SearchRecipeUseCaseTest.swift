@@ -17,12 +17,20 @@ class SearchRecipeUseCaseTest: XCTestCase {
         XCTAssertTrue(output.messages.isEmpty)
     }
     
-    func test_receive_sendsEmptyIngredientsListDataOutput() {
+    func test_receive_doesNotSendsEmptyIngredientsListDataOutput() {
         let (sut, output) = makeSUT()
         
-        sut.receive()
+        sut.receive(ingredients: "")
         
         XCTAssertTrue(output.messages.isEmpty)
+    }
+    
+    func test_receive_sendsListIngredientsListDataOutput() {
+        let (sut, output) = makeSUT()
+        
+        sut.receive(ingredients: "Tomatoes")
+        
+        XCTAssertEqual(output.messages, ["Tomatoes"])
     }
     
     // MARK: - Helpers
@@ -36,5 +44,8 @@ class SearchRecipeUseCaseTest: XCTestCase {
     private class OutputSpy: SearchRecipeUseCaseOutput {
         var messages = [String]()
         
+        func didReceived(ingredients: [String]) {
+            messages = ingredients
+        }
     }
 }
