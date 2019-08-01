@@ -81,6 +81,14 @@ class SearchRecipeUseCaseTest: XCTestCase {
         XCTAssertEqual(output.messages, ["Tomatoes", "Potatoes"])
     }
     
+    func test_receivedMultipleIngredients_sendListIngredientsFormmated() {
+        let (sut, output) = makeSUT()
+        
+        sut.receive(ingredients: ",Tomatoes,  Potatoes meal: orange,  ")
+        
+        XCTAssertEqual(output.messages, ["Tomatoes", "Potatoes", "Meal", "Orange"])
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT() -> (sut: SearchRecipeUseCase, output: OutputSpy) {
