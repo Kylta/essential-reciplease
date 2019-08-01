@@ -25,12 +25,28 @@ class SearchRecipeUseCaseTest: XCTestCase {
         XCTAssertTrue(output.ingredients.isEmpty)
     }
     
+    func test_receiveWithEmptyIngredients_sendsFormattedErrorDataOutput() {
+        let (sut, output) = makeSUT()
+        
+        sut.receive(ingredients: "")
+        
+        XCTAssertEqual(output.error, "No ingredients !")
+    }
+    
     func test_receive_sendsListIngredientsListDataOutput() {
         let (sut, output) = makeSUT()
         
         sut.receive(ingredients: "Tomatoes")
         
         XCTAssertEqual(output.ingredients, ["Tomatoes"])
+    }
+    
+    func test_receiveWithIngredients_DoesNotSendsFormattedErrorDataOutput() {
+        let (sut, output) = makeSUT()
+        
+        sut.receive(ingredients: "Tomatoes")
+        
+        XCTAssertNil(output.error)
     }
     
     func test_receiveWithMultipleIngredientsWithComa_sendsListIngredientsListDataOutput() {
@@ -99,9 +115,14 @@ class SearchRecipeUseCaseTest: XCTestCase {
     
     private class OutputSpy: SearchRecipeUseCaseOutput {
         var ingredients = [String]()
+        var error: String?
         
         func didReceived(ingredients: [String]) {
             self.ingredients = ingredients
+        }
+        
+        func sendError(_ error: String) {
+            self.error = error
         }
     }
 }
