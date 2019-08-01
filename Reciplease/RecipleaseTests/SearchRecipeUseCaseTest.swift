@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Reciplease
 
 class SearchRecipeUseCaseTest: XCTestCase {
     

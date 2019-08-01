@@ -8,16 +8,16 @@
 
 import Foundation
 
-protocol SearchRecipeUseCaseOutput {
+public protocol SearchRecipeUseCaseOutput {
     
 }
 
-final class SearchRecipeUseCase {
-    init(output: SearchRecipeUseCaseOutput) {
+public final class SearchRecipeUseCase {
+    public init(output: SearchRecipeUseCaseOutput) {
         
     }
     
-    func receive() {
+    public func receive() {
         
     }
 }
