@@ -1,4 +1,4 @@
-# Essential Reciplease - Search Feature
+# Essential Reciplease - Ingredients Feature
 
 ## BDD Specs
 
