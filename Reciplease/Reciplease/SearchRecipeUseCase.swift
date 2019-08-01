@@ -9,7 +9,7 @@
 import Foundation
 
 public protocol SearchRecipeUseCaseOutput {
-    func didReceived(ingredients: [String])
+    func didReceived(ingredients: Set<String>)
     func sendError(_ error: String)
 }
 
@@ -22,7 +22,7 @@ public final class SearchRecipeUseCase {
     
     public func receive(ingredients: String) {
         if !ingredients.isEmpty {
-            output.didReceived(ingredients: ingredients.validatorIngredients())
+            output.didReceived(ingredients: Set(ingredients.validatorIngredients()))
         } else {
             output.sendError("No ingredients !")
         }

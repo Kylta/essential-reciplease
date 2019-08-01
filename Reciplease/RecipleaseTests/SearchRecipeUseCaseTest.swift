@@ -41,6 +41,14 @@ class SearchRecipeUseCaseTest: XCTestCase {
         XCTAssertEqual(output.ingredients, ["Tomatoes"])
     }
     
+    func test_receiveTwiceWithTheSameIngredient_sendsListIngredientsListDataOutputWithOneIngredient() {
+        let (sut, output) = makeSUT()
+        
+        sut.receive(ingredients: "Tomatoes, Tomatoes")
+        
+        XCTAssertEqual(output.ingredients, ["Tomatoes"])
+    }
+    
     func test_receiveWithIngredients_DoesNotSendsFormattedErrorDataOutput() {
         let (sut, output) = makeSUT()
         
@@ -114,10 +122,11 @@ class SearchRecipeUseCaseTest: XCTestCase {
     }
     
     private class OutputSpy: SearchRecipeUseCaseOutput {
-        var ingredients = [String]()
+        var ingredients = Set<String>()
         var error: String?
+        var deleteCallcount = 0
         
-        func didReceived(ingredients: [String]) {
+        func didReceived(ingredients: Set<String>) {
             self.ingredients = ingredients
         }
         
