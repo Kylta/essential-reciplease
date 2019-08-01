@@ -25,14 +25,3 @@ public final class SearchRecipeUseCase {
         }
     }
 }
-
-private extension String {
-    func validatorIngredients() -> [String] {
-        return self.components(separatedBy: .punctuationCharacters)
-            .joined(separator: " ")
-            .components(separatedBy: .whitespaces)
-            .filter { !$0.isEmpty }
-            .map { $0.trimmingCharacters(in: .whitespaces) }
-            .map { $0.capitalized }
-    }
-}
