@@ -113,6 +113,24 @@ class SearchRecipeUseCaseTest: XCTestCase {
         XCTAssertEqual(output.ingredients, ["Tomatoes", "Potatoes", "Meal", "Orange"])
     }
     
+    func test_deleteWithNonEmptyList_notifiesOutput() {
+        let (sut, output) = makeSUT()
+        
+        sut.receive(ingredients: "Tomatoes")
+        sut.delete()
+        
+        XCTAssertEqual(output.deleteCallcount, 1)
+    }
+    
+    func test_deleteWithEmptyList_notifiesOutputWithAnError() {
+        let (sut, output) = makeSUT()
+
+        sut.delete()
+
+        XCTAssertEqual(output.deleteCallcount, 0)
+        XCTAssertEqual(output.error, "No ingredients in your list !")
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT() -> (sut: SearchRecipeUseCase, output: OutputSpy) {
@@ -132,6 +150,10 @@ class SearchRecipeUseCaseTest: XCTestCase {
         
         func sendError(_ error: String) {
             self.error = error
+        }
+        
+        func didDelete() {
+            deleteCallcount += 1
         }
     }
 }

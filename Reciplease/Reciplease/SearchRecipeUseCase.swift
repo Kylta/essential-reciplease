@@ -11,9 +11,11 @@ import Foundation
 public protocol SearchRecipeUseCaseOutput {
     func didReceived(ingredients: Set<String>)
     func sendError(_ error: String)
+    func didDelete()
 }
 
 public final class SearchRecipeUseCase {
+    private var emptyList = true
     let output: SearchRecipeUseCaseOutput
     
     public init(output: SearchRecipeUseCaseOutput) {
@@ -21,10 +23,16 @@ public final class SearchRecipeUseCase {
     }
     
     public func receive(ingredients: String) {
+        emptyList = ingredients.isEmpty
         if !ingredients.isEmpty {
             output.didReceived(ingredients: Set(ingredients.validatorIngredients()))
         } else {
             output.sendError("No ingredients !")
         }
+    }
+    
+    public func delete() {
+        emptyList ? output.sendError("No ingredients in your list !")
+            : output.didDelete()
     }
 }
